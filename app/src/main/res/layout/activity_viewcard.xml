@@ -37,16 +37,51 @@
                     android:layout_height="match_parent" >
 
                     <ImageView
-                        android:id="@+id/imageView"
+                        android:id="@+id/ivPiccard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginTop="3dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:srcCompat="@tools:sample/avatars" />
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/tvJudulcard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Morning outing to ocean beach"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ivPiccard" />
+
+                    <TextView
+                        android:id="@+id/tvDeskcard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="I dreamed about surfing last night. Whenever that happens, I know im going to have a great day on the winter. Sarah"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvJudulcard" />
+
+                    <View
+                        android:id="@+id/linepisah"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/black"
+                        tools:layout_editor_absoluteX="-39dp"
+                        tools:layout_editor_absoluteY="204dp" />
+
+                    <TextView
+                        android:id="@+id/tvTanggal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="Tuesday, Sep 12"
+                        app:layout_constraintStart_toStartOf="@+id/tvDeskcard"
+                        app:layout_constraintTop_toBottomOf="@id/linepisah" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
