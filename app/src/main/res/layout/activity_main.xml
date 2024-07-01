@@ -7,14 +7,103 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/ivSparkle"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:src="@drawable/baseline_auto_awesome_24"
+        app:layout_constraintEnd_toEndOf="@+id/ivPerson"
+        app:layout_constraintTop_toTopOf="@+id/ivPerson" />
+
+    <ImageView
+        android:id="@+id/ivPerson"
+        android:layout_width="34dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/baseline_person_24"
+        app:layout_constraintStart_toStartOf="@+id/tvWelcome"
+        app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
+
+    <ImageView
+        android:id="@+id/ivHeader"
+        android:layout_width="410dp"
+        android:layout_height="276dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
     <TextView
+        android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="24dp"
+        android:text="Welcome to Journal"
+        android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ivHeader" />
+
+    <TextView
+        android:id="@+id/tvPerson"
+        android:layout_width="264dp"
+        android:layout_height="44dp"
+        android:layout_marginLeft="6dp"
+        android:text="Write about your day and add photos, places, and more."
+        app:layout_constraintBottom_toBottomOf="@+id/ivPerson"
+        app:layout_constraintEnd_toEndOf="@+id/tvWelcome"
+        app:layout_constraintLeft_toRightOf="@+id/ivPerson"
+        app:layout_constraintTop_toTopOf="@+id/ivPerson" />
+
+    <ImageView
+        android:id="@+id/ivGembok"
+        android:layout_width="34dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/tvWelcome"
+        app:layout_constraintTop_toBottomOf="@+id/ivPerson"
+        app:srcCompat="@drawable/baseline_lock_24" />
+
+    <TextView
+        android:id="@+id/tvGembok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lock your journall to keep it private."
+        app:layout_constraintBottom_toBottomOf="@id/ivGembok"
+        app:layout_constraintStart_toStartOf="@+id/tvPerson"
+        app:layout_constraintTop_toTopOf="@id/ivGembok" />
+
+    <ImageView
+        android:id="@+id/Ivjadwal"
+        android:layout_width="34dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/tvWelcome"
+        app:layout_constraintTop_toBottomOf="@+id/ivGembok"
+        app:srcCompat="@drawable/baseline_calendar_month_24" />
+
+    <TextView
+        android:id="@+id/tvJadwal"
+        android:layout_width="264dp"
+        android:layout_height="wrap_content"
+        android:text="Schedule time for writing and make it a habit."
+        app:layout_constraintBottom_toBottomOf="@+id/Ivjadwal"
+        app:layout_constraintStart_toStartOf="@+id/tvPerson"
+        app:layout_constraintTop_toTopOf="@+id/Ivjadwal" />
+
+    <Button
+        android:id="@+id/btnContinue"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Continue"
+        app:layout_constraintEnd_toEndOf="@+id/tvJadwal"
+        app:layout_constraintStart_toStartOf="@+id/Ivjadwal"
+        app:layout_constraintTop_toBottomOf="@+id/Ivjadwal" />
+
 
     <Button
         android:id="@+id/button"
