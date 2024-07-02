@@ -99,7 +99,6 @@ class tambahJurnal : AppCompatActivity() {
     private fun tambahData(db: FirebaseFirestore, Judul: String, Deskripsi: String, Tanggal: String, Gambar: String) {
         val dataBaru = jurnalTravel(Judul, Deskripsi, Tanggal, Gambar, "false")
         db.collection("listJurnal")
-//            .document(counter.toString())
             .document(dataBaru.judul)
             .set(dataBaru)
             .addOnSuccessListener { documentReference ->

@@ -2,74 +2,58 @@ package com.example.proyekandroid
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.proyekandroid.adapter.adapterRecView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.firestore.FirebaseFirestore
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class homePage : AppCompatActivity() {
-    private lateinit var adapter: adapterRecView
-    private val DataJurnal= mutableListOf<jurnalTravel>()
-
-    private lateinit var _btnMynote : ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_home_page)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainHome)) { v, insets ->
+//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+//            insets
+//        }
 
-        var _btnMynote = findViewById<ImageView>(R.id.btnMynote)
-
-        val fbAdd = findViewById<FloatingActionButton>(R.id.fbAdd)
-        fbAdd.setOnClickListener {
-            startActivity(Intent(this, tambahJurnal::class.java))
-        }
-
-        val recyclerView = findViewById<RecyclerView>(R.id.rvJurnal)
-        val db = FirebaseFirestore.getInstance()
-        adapter = adapterRecView(DataJurnal, db)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
-
-
-        readData(db)
-    }
-    override fun onResume() {
-        super.onResume()
-        val db = FirebaseFirestore.getInstance()
-        readData(db)
-    }
-    fun readData(db: FirebaseFirestore){
-        db.collection("listJurnal").get()
-            .addOnSuccessListener {
-                    result->
-                DataJurnal.clear()
-                for (document in result){
-                    val readData = jurnalTravel(
-                        document.data.get("judul").toString(),
-                        document.data.get("deskripsi").toString(),
-                        document.data.get("tanggal").toString(),
-                        document.data.get("gambar").toString(),
-                        document.data.get("favorite").toString()
-                    )
-                    DataJurnal.add(readData)
-                }
-                adapter.notifyDataSetChanged()
-                adapter.updateData(DataJurnal)
+    val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+    bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_home -> {
+                openFragment(homePageFragment())
+                true
             }
-            .addOnFailureListener {
-                Log.d("Firebase", it.message.toString())
+            R.id.navigation_favorite -> {
+                openFragment(favoritePageFragment())
+                true
             }
+            R.id.navigation_add -> {
+                startActivity(Intent(this, tambahJurnal::class.java))
+                true
+            }
+            R.id.navigation_travel -> {
+                // Add your travel fragment here
+                true
+            }
+            R.id.navigation_profile -> {
+                // Add your profile fragment here
+                true
+            }
+            else -> false
+        }
+    }
+
+    // Open the home fragment by default
+    if (savedInstanceState == null) {
+        bottomNavigationView.selectedItemId = R.id.navigation_home
+    }
+}
+
+    private fun openFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 }

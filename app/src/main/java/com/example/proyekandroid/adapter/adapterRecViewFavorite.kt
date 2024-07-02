@@ -12,10 +12,10 @@ import com.example.proyekandroid.jurnalTravel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 
-class adapterRecView(
+class adapterRecViewFavorite(
     private var listJurnal: MutableList<jurnalTravel>,
     private val db: FirebaseFirestore
-) : RecyclerView.Adapter<adapterRecView.ListViewHolder>() {
+) : RecyclerView.Adapter<adapterRecViewFavorite.ListViewHolder>()  {
 
     private var loveStates: MutableList<Boolean> = MutableList(listJurnal.size) { false }
 
@@ -106,6 +106,4 @@ class adapterRecView(
         loveStates = MutableList(listJurnal.size) { newListJurnal[it].favorite == "true" }
         notifyDataSetChanged()
     }
-
-
 }

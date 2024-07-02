@@ -1,87 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/mainHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="10"
     tools:context=".homePage">
 
-    <TextView
-        android:id="@+id/textView2"
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="Travel Journal"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8.5"
-        android:id="@+id/rvJurnal"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <ImageView
-            android:id="@+id/btnMynote"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:src="@drawable/baseline_home_filled_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/btnFav"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="24dp"
-            android:src="@drawable/baseline_favorite_24"
-            app:layout_constraintBottom_toBottomOf="@+id/btnMynote"
-            app:layout_constraintStart_toEndOf="@+id/btnMynote"
-            app:layout_constraintTop_toTopOf="@+id/btnMynote" />
-
-        <ImageView
-            android:id="@+id/btnTravel"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginEnd="24dp"
-            android:src="@drawable/baseline_travel_explore_24"
-            app:layout_constraintBottom_toBottomOf="@+id/btnMynote"
-            app:layout_constraintEnd_toStartOf="@+id/btnProfile"
-            app:layout_constraintTop_toTopOf="@+id/btnMynote" />
-
-        <ImageView
-            android:id="@+id/btnProfile"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:src="@drawable/baseline_person_24"
-            app:layout_constraintBottom_toBottomOf="@+id/btnMynote"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnMynote" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fbAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="@+id/btnMynote"
-            app:layout_constraintEnd_toStartOf="@+id/btnTravel"
-            app:layout_constraintStart_toEndOf="@+id/btnFav"
-            app:layout_constraintTop_toTopOf="@+id/btnMynote"
-            app:srcCompat="@android:drawable/ic_input_add" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</LinearLayout>
+        android:layout_gravity="bottom"
+        app:menu="@menu/bottom_nav_menu" />
+</FrameLayout>
