@@ -31,18 +31,55 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
+        <ImageView
+            android:id="@+id/btnMynote"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/baseline_home_filled_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnFav"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="24dp"
+            android:src="@drawable/baseline_favorite_24"
+            app:layout_constraintBottom_toBottomOf="@+id/btnMynote"
+            app:layout_constraintStart_toEndOf="@+id/btnMynote"
+            app:layout_constraintTop_toTopOf="@+id/btnMynote" />
+
+        <ImageView
+            android:id="@+id/btnTravel"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/baseline_travel_explore_24"
+            app:layout_constraintBottom_toBottomOf="@+id/btnMynote"
+            app:layout_constraintEnd_toStartOf="@+id/btnProfile"
+            app:layout_constraintTop_toTopOf="@+id/btnMynote" />
+
+        <ImageView
+            android:id="@+id/btnProfile"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/baseline_person_24"
+            app:layout_constraintBottom_toBottomOf="@+id/btnMynote"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnMynote" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fbAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:clickable="true"
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/btnMynote"
+            app:layout_constraintEnd_toStartOf="@+id/btnTravel"
+            app:layout_constraintStart_toEndOf="@+id/btnFav"
+            app:layout_constraintTop_toTopOf="@+id/btnMynote"
             app:srcCompat="@android:drawable/ic_input_add" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

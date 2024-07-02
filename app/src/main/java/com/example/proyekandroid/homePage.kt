@@ -3,6 +3,7 @@ package com.example.proyekandroid
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,6 +17,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 class homePage : AppCompatActivity() {
     private lateinit var adapter: adapterRecView
     private val DataJurnal= mutableListOf<jurnalTravel>()
+
+    private lateinit var _btnMynote : ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,6 +28,8 @@ class homePage : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        var _btnMynote = findViewById<ImageView>(R.id.btnMynote)
 
         val fbAdd = findViewById<FloatingActionButton>(R.id.fbAdd)
         fbAdd.setOnClickListener {
