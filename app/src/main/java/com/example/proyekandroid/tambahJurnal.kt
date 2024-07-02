@@ -46,11 +46,11 @@ class tambahJurnal : AppCompatActivity() {
         btnSimpan.setOnClickListener {
             if (_etJudul.text.toString().isNotEmpty() && _etDeskripsi.text.toString().isNotEmpty() && _etTanggal.text.toString().isNotEmpty() && selectedImageUri != null) {
                 uploadImageAndSaveData(selectedImageUri!!)
-                counter ++
             } else {
                 Log.d("Simpan", "Semua field harus diisi dan gambar harus dipilih")
             }
         }
+        initializeCounter()
     }
 
     private fun openImageChooser() {
@@ -99,17 +99,31 @@ class tambahJurnal : AppCompatActivity() {
     private fun tambahData(db: FirebaseFirestore, Judul: String, Deskripsi: String, Tanggal: String, Gambar: String) {
         val dataBaru = jurnalTravel(Judul, Deskripsi, Tanggal, Gambar, "false")
         db.collection("listJurnal")
-            .document(counter.toString())
+//            .document(counter.toString())
+            .document(dataBaru.judul)
             .set(dataBaru)
             .addOnSuccessListener { documentReference ->
                 Log.d("Firebase", "Data berhasil disimpan")
                 _etJudul.setText("")
                 _etDeskripsi.setText("")
                 _etTanggal.setText("")
+                counter++
                 finish()
             }
             .addOnFailureListener { e ->
                 Log.w("Firebase", "Error menambahkan dokumen", e)
+            }
+    }
+
+    private fun initializeCounter() {
+        db.collection("listJurnal")
+            .get()
+            .addOnSuccessListener { documents ->
+                counter = documents.size()
+                Log.d("Firebase", "Counter initialized to $counter")
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Firebase", "Error getting documents: ", exception)
             }
     }
 }

@@ -2,11 +2,16 @@ package com.example.proyekandroid
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.proyekandroid.adapter.adapterRecView
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,8 +29,10 @@ class MainActivity : AppCompatActivity() {
         _btnContinue = findViewById(R.id.btnContinue)
 
         _btnContinue.setOnClickListener {
-            val intent = Intent(this, Viewcard::class.java)
+            val intent = Intent(this, homePage::class.java)
             startActivity(intent)
         }
+
     }
+
 }
