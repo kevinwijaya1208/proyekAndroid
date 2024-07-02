@@ -28,6 +28,7 @@
         android:id="@+id/ivHeader"
         android:layout_width="match_parent"
         android:layout_height="276dp"
+        android:scaleType="centerCrop"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

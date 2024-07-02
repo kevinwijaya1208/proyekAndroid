@@ -11,7 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class favoritePageFragment : Fragment(R.layout.fragment_favorite_page) {
 
-    private lateinit var adapter: adapterRecViewFavorite
+    private lateinit var adapter: adapterRecView
     private val DataJurnal = mutableListOf<jurnalTravel>()
 
     override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
@@ -19,7 +19,7 @@ class favoritePageFragment : Fragment(R.layout.fragment_favorite_page) {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.rvJurnal)
         val db = FirebaseFirestore.getInstance()
-        adapter = adapterRecViewFavorite(DataJurnal, db)
+        adapter = adapterRecView(DataJurnal, db)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 

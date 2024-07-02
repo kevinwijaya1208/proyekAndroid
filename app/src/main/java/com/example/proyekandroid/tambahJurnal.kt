@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -42,7 +43,9 @@ class tambahJurnal : AppCompatActivity() {
         _etDeskripsi = findViewById(R.id.etDeskripsi)
         _etTanggal = findViewById(R.id.etTanggal)
 
-        val btnSimpan = findViewById<ImageButton>(R.id.btnSimpan)
+        val btnEdit = findViewById<Button>(R.id.btnEdit)
+
+        val btnSimpan = findViewById<Button>(R.id.btnSimpan)
         btnSimpan.setOnClickListener {
             if (_etJudul.text.toString().isNotEmpty() && _etDeskripsi.text.toString().isNotEmpty() && _etTanggal.text.toString().isNotEmpty() && selectedImageUri != null) {
                 uploadImageAndSaveData(selectedImageUri!!)
@@ -50,7 +53,33 @@ class tambahJurnal : AppCompatActivity() {
                 Log.d("Simpan", "Semua field harus diisi dan gambar harus dipilih")
             }
         }
-        initializeCounter()
+//        initializeCounter()
+        var iAddEdit : Int = 0
+        var iJudul : String = ""
+        var iDeskripsi : String = ""
+        var iTanggal : String = ""
+
+        iAddEdit = intent.getIntExtra("addEdit", 0)
+        iJudul = intent.getStringExtra("judul").toString()
+        iDeskripsi = intent.getStringExtra("deskripsi").toString()
+        iTanggal = intent.getStringExtra("tanggal").toString()
+
+        if (iAddEdit == 0) {
+            btnSimpan.visibility = View.VISIBLE
+            btnEdit.visibility = View.GONE
+        } else {
+            btnSimpan.visibility = View.GONE
+            btnEdit.visibility = View.VISIBLE
+
+            _etJudul.setText(iJudul)
+            _etDeskripsi.setText(iDeskripsi)
+            _etTanggal.setText(iTanggal)
+
+//            val originalToDoList = iToDo
+//            btnEdit.setOnClickListener {
+//                editData(db, originalToDoList, _etToDoList.text.toString(), _etWaktu.text.toString())
+//            }
+        }
     }
 
     private fun openImageChooser() {

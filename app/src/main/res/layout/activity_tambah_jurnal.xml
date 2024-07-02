@@ -74,16 +74,23 @@
         app:layout_constraintStart_toStartOf="@+id/etDeskripsi"
         app:layout_constraintTop_toBottomOf="@+id/etDeskripsi" />
 
-    <ImageButton
+    <Button
         android:id="@+id/btnSimpan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTanggal"
-        app:srcCompat="@android:drawable/ic_menu_save" />
+        android:text="Simpan"
+        app:layout_constraintStart_toStartOf="@+id/etTanggal"
+        app:layout_constraintTop_toBottomOf="@+id/etTanggal" />
+
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Edit"
+        app:layout_constraintStart_toEndOf="@+id/btnSimpan"
+        app:layout_constraintTop_toTopOf="@+id/btnSimpan" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
