@@ -30,6 +30,7 @@ class adapterRecView(
         var loveIcon: ImageView = itemView.findViewById(R.id.ivLoveIcon)
         var editIcon: ImageView = itemView.findViewById(R.id.ivEdit)
         var deleteIcon: ImageView = itemView.findViewById(R.id.ivDelete)
+        var detailIcon: ImageView = itemView.findViewById(R.id.ivInfo)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
