@@ -1,8 +1,10 @@
 package com.example.proyekandroid
 
 import android.animation.Animator
+import android.animation.ArgbEvaluator
 import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -20,6 +23,7 @@ import com.example.proyekandroid.API.ApiServices
 import com.example.proyekandroid.API.ResponseFlightID
 import com.example.proyekandroid.adapter.ImageAdapter
 import retrofit2.Call
+import android.view.Window
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -47,7 +51,7 @@ class TravelPageFragment : Fragment(R.layout.fragment_travel_page) {
     private lateinit var handler : Handler
     private lateinit var imageList: ArrayList<Int>
     private lateinit var adapter : ImageAdapter
-    private val delayMillis: Long = 6000
+    private val delayMillis: Long = 5000
 
     private val runnable = Runnable {
         viewPager2.currentItem += 1
@@ -77,25 +81,56 @@ class TravelPageFragment : Fragment(R.layout.fragment_travel_page) {
         imageList.add(R.drawable.kualalumpur)
         imageList.add(R.drawable.tokyo)
         imageList.add(R.drawable.france)
-        imageList.add(R.drawable.agra)
+        imageList.add(R.drawable.barcelona)
         imageList.add(R.drawable.venice)
         imageList.add(R.drawable.losangeles)
+        imageList.add(R.drawable.athens)
 
         adapter = ImageAdapter(imageList, viewPager2)
         viewPager2.adapter = adapter
         viewPager2.offscreenPageLimit = 3
         viewPager2.clipToPadding = false
         viewPager2.clipChildren = false
+//        viewPager2.post {
+//            viewPager2.setCurrentItem(1)
+//        }
         viewPager2.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
-
         setupTransformer()
+
+        val colors = listOf(
+            R.color.bali,
+            R.color.kl,
+            R.color.tokyo,
+            R.color.paris,
+            R.color.barca,
+            R.color.venice,
+            R.color.la,
+            R.color.athens
+        )
+        var currentColor = ContextCompat.getColor(requireContext(), colors[viewPager2.currentItem % colors.size])
+
+
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
 
                 handler.removeCallbacks(runnable)
                 handler.postDelayed(runnable, delayMillis)
+                // Get the new color
+                val newColor = ContextCompat.getColor(requireContext(), colors[position % colors.size])
+
+                // Animate the background color change
+                val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), currentColor, newColor)
+                colorAnimation.duration = 600 // Duration of the transition in milliseconds
+                colorAnimation.addUpdateListener { animator ->
+                    view.setBackgroundColor(animator.animatedValue as Int)
+
+                }
+                colorAnimation.start()
+
+                // Update the current color
+                currentColor = newColor
 
             }
         })
@@ -118,8 +153,12 @@ class TravelPageFragment : Fragment(R.layout.fragment_travel_page) {
 
     private fun setupTransformer(){
         val transformer = CompositePageTransformer()
-        transformer.addTransformer(MarginPageTransformer(40))
+        // margin item tengah
+        transformer.addTransformer(MarginPageTransformer(30))
         transformer.addTransformer { page, position ->
+//            val scale = 0.9f + (1 - abs(position)) * 0.1f // Adjust the scaling factor to almost fit the screen width
+//            page.scaleY = scale
+//            page.scaleX = scale
             val r = 1 - abs(position)
             page.scaleY = 0.85f + r * 0.14f
             page.alpha = 0.5f + r * 0.5f

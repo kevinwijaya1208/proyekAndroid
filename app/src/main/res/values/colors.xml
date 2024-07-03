@@ -2,4 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="bali">#FEFCD0</color>
+    <color name="kl">#BFD6D3</color>
+    <color name="tokyo">#BAE0F3</color>
+    <color name="paris">#FFDBE5</color>
+    <color name="barca">#FFCE76</color>
+    <color name="venice">#FEF1C1</color>
+    <color name="la">#E2FAB5</color>
+    <color name="athens">#78C1E2</color>
 </resources>
