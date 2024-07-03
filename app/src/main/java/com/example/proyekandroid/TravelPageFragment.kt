@@ -1,22 +1,33 @@
 package com.example.proyekandroid
 
-import android.os.Build
+import android.animation.Animator
+import android.animation.TimeInterpolator
+import android.animation.ValueAnimator
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
+import android.view.animation.AccelerateDecelerateInterpolator
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.example.proyekandroid.API.ApiServices
 import com.example.proyekandroid.API.ResponseFlightID
+import com.example.proyekandroid.adapter.ImageAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
+import java.util.ArrayList
 import java.util.Date
+import kotlin.math.abs
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +43,16 @@ class TravelPageFragment : Fragment(R.layout.fragment_travel_page) {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var viewPager2: ViewPager2
+    private lateinit var handler : Handler
+    private lateinit var imageList: ArrayList<Int>
+    private lateinit var adapter : ImageAdapter
+    private val delayMillis: Long = 6000
+
+    private val runnable = Runnable {
+        viewPager2.currentItem += 1
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -39,7 +60,72 @@ class TravelPageFragment : Fragment(R.layout.fragment_travel_page) {
             param2 = it.getString(ARG_PARAM2)
         }
 
-        getData("Jakarta")
+
+
+//        getData("Jakarta")
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewPager2 = view.findViewById(R.id.travelViewPager)
+        handler = Handler(Looper.myLooper()!!)
+        imageList = ArrayList()
+
+
+        imageList.add(R.drawable.bali)
+        imageList.add(R.drawable.kualalumpur)
+        imageList.add(R.drawable.tokyo)
+        imageList.add(R.drawable.france)
+        imageList.add(R.drawable.agra)
+        imageList.add(R.drawable.venice)
+        imageList.add(R.drawable.losangeles)
+
+        adapter = ImageAdapter(imageList, viewPager2)
+        viewPager2.adapter = adapter
+        viewPager2.offscreenPageLimit = 3
+        viewPager2.clipToPadding = false
+        viewPager2.clipChildren = false
+        viewPager2.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+
+        setupTransformer()
+        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                handler.removeCallbacks(runnable)
+                handler.postDelayed(runnable, delayMillis)
+
+            }
+        })
+    }
+
+
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(runnable)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        handler.postDelayed(runnable, delayMillis)
+    }
+
+
+
+    private fun setupTransformer(){
+        val transformer = CompositePageTransformer()
+        transformer.addTransformer(MarginPageTransformer(40))
+        transformer.addTransformer { page, position ->
+            val r = 1 - abs(position)
+            page.scaleY = 0.85f + r * 0.14f
+            page.alpha = 0.5f + r * 0.5f
+        }
+
+        viewPager2.setPageTransformer(transformer)
 
     }
 
