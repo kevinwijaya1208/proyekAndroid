@@ -170,48 +170,6 @@ class tambahJurnal : AppCompatActivity() {
             }
     }
 
-//    private fun editData(imageUri: Uri, db: FirebaseFirestore, originalJudul: String, judul: String, deskripsi: String, tanggal: String, gambar: String, favorite :String) {
-//        db.collection("listJurnal")
-//            .document(originalJudul)
-//            .delete()
-//            .addOnSuccessListener {
-//                Log.d("Firebase", "Data berhasil diupdate")
-//                finish()
-//            }
-//            .addOnFailureListener { e ->
-//                Log.w("Firebase", "Error mengupdate dokumen", e)
-//            }
-//
-//        if (imageUri != null) {
-//            // Upload the new image
-//            val storageRef = FirebaseStorage.getInstance().reference
-//            val imageName = UUID.randomUUID().toString()
-//            val imageRef = storageRef.child("images/$imageName")
-//
-//            val uploadTask = imageRef.putFile(imageUri)
-//            uploadTask.continueWithTask { task ->
-//                if (!task.isSuccessful) {
-//                    task.exception?.let { throw it }
-//                }
-//                imageRef.downloadUrl
-//            }.addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    val downloadUri = task.result
-//                    val downloadUrl = downloadUri.toString()
-//                    // Update Firestore with new data including the new image URL
-//                    tambahData2(db, judul, deskripsi, tanggal, downloadUrl, favorite)
-//                } else {
-//                    Log.e("Firebase", "Upload failed", task.exception)
-//                }
-//            }.addOnFailureListener { exception ->
-//                Log.e("Firebase", "Upload failed", exception)
-//            }
-//        } else {
-//            // No new image selected, update Firestore with existing image URL
-//            tambahData2(db, judul, deskripsi, tanggal, gambar, favorite)
-//        }
-//    }
-
     private fun editData(
         imageUri: Uri?,
         db: FirebaseFirestore,
@@ -271,49 +229,4 @@ class tambahJurnal : AppCompatActivity() {
                 Log.w("Firebase", "Error deleting document", e)
             }
     }
-
-    private fun uploadImageAndUpdateData(
-        imageUri: Uri,
-        db: FirebaseFirestore,
-        judul: String,
-        deskripsi: String,
-        tanggal: String,
-        favorite: String
-    ) {
-        val storageRef = FirebaseStorage.getInstance().reference
-        val imageName = UUID.randomUUID().toString()
-        val imageRef = storageRef.child("images/$imageName")
-
-        val uploadTask = imageRef.putFile(imageUri)
-        uploadTask.continueWithTask { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let { throw it }
-            }
-            imageRef.downloadUrl
-        }.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val downloadUri = task.result
-                val downloadUrl = downloadUri.toString()
-                // Update Firestore with new data including the new image URL
-                tambahData2(db, judul, deskripsi, tanggal, downloadUrl, favorite)
-            } else {
-                Log.e("Firebase", "Upload failed", task.exception)
-            }
-        }.addOnFailureListener { exception ->
-            Log.e("Firebase", "Upload failed", exception)
-        }
-    }
-
-    private fun updateDataWithExistingImage(
-        db: FirebaseFirestore,
-        judul: String,
-        deskripsi: String,
-        tanggal: String,
-        gambar: String,
-        favorite: String
-    ) {
-        // Update Firestore with existing image URL
-        tambahData2(db, judul, deskripsi, tanggal, gambar, favorite)
-    }
-
 }
