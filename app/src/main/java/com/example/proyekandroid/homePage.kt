@@ -37,6 +37,7 @@ class homePage : AppCompatActivity() {
             }
             R.id.navigation_travel -> {
                 // Add your travel fragment here
+                openFragment(TravelPageFragment())
                 true
             }
             R.id.navigation_profile -> {
