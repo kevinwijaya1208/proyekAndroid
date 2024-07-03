@@ -28,6 +28,17 @@ class homePageFragment : Fragment(R.layout.fragment_home_page) {
     private lateinit var adapter: adapterRecView
     private val DataJurnal = mutableListOf<jurnalTravel>()
 
+    private var param1: String? = null
+    private var param2: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
     override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -45,6 +56,14 @@ class homePageFragment : Fragment(R.layout.fragment_home_page) {
         recyclerView.adapter = adapter
 
         readData(db)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_home_page, container, false)
     }
 
     override fun onResume() {
