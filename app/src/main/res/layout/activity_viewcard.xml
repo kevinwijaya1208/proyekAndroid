@@ -38,7 +38,7 @@
 
                 <ImageView
                     android:id="@+id/ivPiccard"
-                    android:layout_width="130dp"
+                    android:layout_width="300dp"
                     android:layout_height="130dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginTop="3dp"

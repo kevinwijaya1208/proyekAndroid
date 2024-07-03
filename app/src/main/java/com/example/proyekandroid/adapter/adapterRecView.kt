@@ -48,7 +48,7 @@ class adapterRecView(
             holder._tvJudul.text = currentItem.judul
             holder._tvDeskripsi.text = currentItem.deskripsi
             holder._tvTanggal.text = currentItem.tanggal
-            Picasso.get().load(currentItem.gambar).into(holder._ivPicture)
+            Picasso.get().load(currentItem.gambar).resize(600,0).into(holder._ivPicture)
 
             holder.loveIcon.isSelected = currentItem.favorite == "true"
             updateLoveIcon(holder.loveIcon, currentItem.favorite == "true")

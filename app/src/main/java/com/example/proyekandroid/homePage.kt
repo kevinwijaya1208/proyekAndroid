@@ -40,8 +40,9 @@ class homePage : AppCompatActivity() {
                 openFragment(TravelPageFragment())
                 true
             }
-            R.id.navigation_profile -> {
+            R.id.navigation_news-> {
                 // Add your profile fragment here
+                openFragment(NewsPageFragment())
                 true
             }
             else -> false
