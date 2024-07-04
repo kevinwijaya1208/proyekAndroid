@@ -83,6 +83,10 @@ class adapterRecView(
 
             holder.detailIcon.setOnClickListener {
                 val intent = Intent(it.context, detailJurnal::class.java)
+                intent.putExtra("judul", currentItem.judul)
+                intent.putExtra("deskripsi", currentItem.deskripsi)
+                intent.putExtra("tanggal", currentItem.tanggal)
+                intent.putExtra("gambar", currentItem.gambar)
                 it.context.startActivity(intent)
             }
 
