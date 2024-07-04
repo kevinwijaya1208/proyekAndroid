@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyekandroid.API.ApiServices
@@ -144,6 +145,8 @@ class ChooseFlight : Fragment() {
 
             override fun onFailure(call: Call<ResponseFlightID>, t: Throwable) {
                 Log.d("ERROR RESPONSE", t.message.toString())
+
+                Toast.makeText(requireContext(), "problem di response getdata", Toast.LENGTH_SHORT).show()
             }
         })
     }
