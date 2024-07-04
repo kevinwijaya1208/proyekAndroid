@@ -62,7 +62,10 @@ data class Presentation(
 	val id: String? = null,
 
 	@field:SerializedName("title")
-	val title: String? = null
+	val title: String? = null,
+
+	@field:SerializedName("skyId")
+	val skyId: String? = null
 )
 
 data class Navigation(

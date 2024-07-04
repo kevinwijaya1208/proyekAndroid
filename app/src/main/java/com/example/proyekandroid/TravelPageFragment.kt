@@ -135,7 +135,8 @@ class TravelPageFragment : Fragment(R.layout.fragment_travel_page) {
 
         _btnCalcBudget.setOnClickListener{
             if(check()){
-
+                val chooseFlightFragment = ChooseFlight.newInstance(_etDept.text.toString(), _etDest.text.toString())
+                (activity as? homePage)?.openFragment(chooseFlightFragment)
             }
         }
     }
@@ -200,46 +201,6 @@ class TravelPageFragment : Fragment(R.layout.fragment_travel_page) {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_travel_page, container, false)
-    }
-
-    object ApiClient{
-        private const val BASE_URL = "https://sky-scanner3.p.rapidapi.com/flights/"
-
-        fun create(): ApiServices {
-            val retrofit : Retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
-            return retrofit.create(ApiServices::class.java)
-        }
-    }
-
-
-    fun getCurrentDate(): String {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val date = Date()
-        return dateFormat.format(date)
-    }
-
-    fun getData(query: String, placeTypes:String = "COUNTRY",
-                outboundDate: String = getCurrentDate(), market: String = "US",
-                locale: String = "en-US")
-    {
-        var call = ApiClient.create().getLocationId(query, placeTypes, outboundDate, market, locale)
-        call.enqueue(object : Callback<ResponseFlightID>{
-            override fun onResponse(
-                call: Call<ResponseFlightID>,
-                response: Response<ResponseFlightID>
-            )
-            {
-                if(response.isSuccessful){
-                    val data = response.body()!!
-                    Log.d("SUCCESS RESPONSE", data.toString())
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseFlightID>, t: Throwable) {
-                Log.d("ERROR RESPONSE", t.message.toString())
-            }
-        })
     }
 
 
