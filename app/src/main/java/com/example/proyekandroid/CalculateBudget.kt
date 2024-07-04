@@ -115,6 +115,7 @@ class CalculateBudget : Fragment() {
                         flightArr.add(FlightDetail(price.toString(), direct.toString(), depDate.toString(), skyId,type.toString()))
                     }
 
+                    Log.d("SUCCESS RESPONSE2 ", flightArr.toString())
                     flightDetailAdapter.notifyDataSetChanged()
 
 
