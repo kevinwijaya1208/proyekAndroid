@@ -37,6 +37,7 @@ class tambahJurnal : AppCompatActivity() {
         val selectImageButton: Button = findViewById(R.id.selectImageButton)
         selectImageButton.setOnClickListener {
             openImageChooser()
+            Log.d("gambar setelah dipilih", "${selectedImageUri}")
         }
 
         _etJudul = findViewById(R.id.etJudul)
@@ -84,12 +85,24 @@ class tambahJurnal : AppCompatActivity() {
             selectedImageUri = Uri.parse(iGambar)
             val imageUri = selectedImageUri
 
+//            btnEdit.setOnClickListener {
+//                if (imageUri != null) {
+//                    Log.d("imageUri", imageUri.toString())
+//                    Log.d("selected image", "${selectedImageUri.toString()}")
+//                    editData(imageUri, db, iJudul, _etJudul.text.toString(), _etDeskripsi.text.toString(), _etTanggal.text.toString(), selectedImageUri.toString(), iFavorite)
+//                }
+//            }
             btnEdit.setOnClickListener {
-                if (imageUri != null) {
-                    Log.d("imageUri", imageUri.toString())
-                    editData(imageUri, db, iJudul, _etJudul.text.toString(), _etDeskripsi.text.toString(), _etTanggal.text.toString(), selectedImageUri.toString(), iFavorite)
+                if (selectedImageUri != null) {
+                    Log.d("selected image", "${selectedImageUri.toString()}")
+                    editData(selectedImageUri, db, iJudul, _etJudul.text.toString(), _etDeskripsi.text.toString(), _etTanggal.text.toString(), iGambar, iFavorite)
                 }
+//                else {
+//                    Log.d("3", "4")
+//                    editData(null, db, iJudul, _etJudul.text.toString(), _etDeskripsi.text.toString(), _etTanggal.text.toString(), iGambar, iFavorite)
+//                }
             }
+
         }
     }
 
@@ -108,6 +121,7 @@ class tambahJurnal : AppCompatActivity() {
             if (imageUri != null) {
                 selectedImageUri = imageUri
                 imageView.setImageURI(imageUri)
+                Log.d("gambar setelah diganti diedit", "$imageUri")
             }
         }
     }
@@ -186,7 +200,42 @@ class tambahJurnal : AppCompatActivity() {
             .addOnSuccessListener {
                 Log.d("Firebase", "Document deleted successfully")
                 if (imageUri != null) {
-                    tambahData2(
+                    if (imageUri.scheme == "content") {
+                        val storageRef = FirebaseStorage.getInstance().reference
+                        val imageName = UUID.randomUUID().toString()
+                        val imageRef = storageRef.child("images/$imageName")
+
+                        val uploadTask = if (imageUri != null) {
+                            imageRef.putFile(imageUri)
+                        } else {
+                            imageRef.putFile(Uri.parse(gambar))
+                        }
+
+                        uploadTask.continueWithTask { task ->
+                            if (!task.isSuccessful) {
+                                task.exception?.let { throw it }
+                            }
+                            imageRef.downloadUrl
+                        }.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val downloadUri = task.result
+                                val downloadUrl = downloadUri.toString()
+                                tambahData2(
+                                    db,
+                                    judul,
+                                    deskripsi,
+                                    tanggal,
+                                    downloadUrl,
+                                    favorite
+                                )
+                            } else {
+                                Log.e("Firebase", "Upload failed", task.exception)
+                            }
+                        }.addOnFailureListener { exception ->
+                            Log.e("Firebase", "Upload failed", exception)
+                        }
+                    } else {
+                        tambahData2(
                         db,
                         _etJudul.text.toString(),
                         _etDeskripsi.text.toString(),
@@ -194,39 +243,75 @@ class tambahJurnal : AppCompatActivity() {
                         imageUri.toString(),
                         favorite
                     )
-                } else {
-                val storageRef = FirebaseStorage.getInstance().reference
-                val imageName = UUID.randomUUID().toString()
-                val imageRef = storageRef.child("images/$imageName")
-
-                val uploadTask = imageRef.putFile(selectedImageUri!!)
-                uploadTask.continueWithTask { task ->
-                    if (!task.isSuccessful) {
-                        task.exception?.let { throw it }
                     }
-                    imageRef.downloadUrl
-                }.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val downloadUri = task.result
-                        val downloadUrl = downloadUri.toString()
-                        tambahData2(
-                            db,
-                            _etJudul.text.toString(),
-                            _etDeskripsi.text.toString(),
-                            _etTanggal.text.toString(),
-                            downloadUrl,
-                            favorite
-                        )
-                    } else {
-                        Log.e("Firebase", "Upload failed", task.exception)
-                    }
-                }.addOnFailureListener { exception ->
-                    Log.e("Firebase", "Upload failed", exception)
                 }
-            }
             }
             .addOnFailureListener { e ->
                 Log.w("Firebase", "Error deleting document", e)
             }
     }
+
+
+
+//    private fun editData(
+//        imageUri: Uri?,
+//        db: FirebaseFirestore,
+//        originalJudul: String,
+//        judul: String,
+//        deskripsi: String,
+//        tanggal: String,
+//        gambar: String,
+//        favorite: String
+//    ) {
+//        db.collection("listJurnal")
+//            .document(originalJudul)
+//            .delete()
+//            .addOnSuccessListener {
+//                Log.d("Firebase", "Document deleted successfully")
+//                if (imageUri != null) {
+//                    Log.d("Gambar tidak kosong", "${imageUri}")
+//                    tambahData2(
+//                        db,
+//                        _etJudul.text.toString(),
+//                        _etDeskripsi.text.toString(),
+//                        _etTanggal.text.toString(),
+//                        imageUri.toString(),
+//                        favorite
+//                    )
+//                } else {
+//                val storageRef = FirebaseStorage.getInstance().reference
+//                val imageName = UUID.randomUUID().toString()
+//                val imageRef = storageRef.child("images/$imageName")
+//
+//                val uploadTask = imageRef.putFile(selectedImageUri!!)
+//                uploadTask.continueWithTask { task ->
+//                    if (!task.isSuccessful) {
+//                        task.exception?.let { throw it }
+//                    }
+//                    imageRef.downloadUrl
+//                }.addOnCompleteListener { task ->
+//                    if (task.isSuccessful) {
+//                        val downloadUri = task.result
+//                        val downloadUrl = downloadUri.toString()
+//                        Log.d("Gambar tidak baru", "${downloadUrl}")
+//                        tambahData2(
+//                            db,
+//                            _etJudul.text.toString(),
+//                            _etDeskripsi.text.toString(),
+//                            _etTanggal.text.toString(),
+//                            downloadUrl,
+//                            favorite
+//                        )
+//                    } else {
+//                        Log.e("Firebase", "Upload failed", task.exception)
+//                    }
+//                }.addOnFailureListener { exception ->
+//                    Log.e("Firebase", "Upload failed", exception)
+//                }
+//            }
+//            }
+//            .addOnFailureListener { e ->
+//                Log.w("Firebase", "Error deleting document", e)
+//            }
+//    }
 }

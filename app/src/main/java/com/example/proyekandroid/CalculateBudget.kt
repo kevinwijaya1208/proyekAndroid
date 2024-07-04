@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyekandroid.API.ApiServices
+import com.example.proyekandroid.API.ApiServices2
 import com.example.proyekandroid.API.BudgetResponse
 import com.example.proyekandroid.API.ResponseFlightID
 import com.example.proyekandroid.ChooseFlight.ApiClient
@@ -73,14 +74,14 @@ class CalculateBudget : Fragment() {
     }
 
     object ApiClient {
-        private const val BASE_URL = "https://sky-scanner3.p.rapidapi.com/"
+        private const val BASE_URL = "https://sky-scanner3.p.rapidapi.com/flights/"
 
-        fun create(): ApiServices {
+        fun create(): ApiServices2 {
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-            return retrofit.create(ApiServices::class.java)
+            return retrofit.create(ApiServices2::class.java)
         }
     }
 
