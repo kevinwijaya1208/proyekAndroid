@@ -52,7 +52,7 @@ class CalculateBudget : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _tvBudgetDesc = view.findViewById(R.id.tvBudgetDesc)
+        _tvBudgetDesc = view.findViewById(R.id.textView12)
         _rvListChoice = view.findViewById(R.id.rvListChoice)
 
         _tvBudgetDesc.text = ("from " + param1!!.src + "(" + param1!!.skyID + ") to " + param2!!.src
@@ -87,7 +87,7 @@ class CalculateBudget : Fragment() {
 
     fun getResult(fromEntityID: String, toEntityID:String)
     {
-        var call = ApiClient.create().getFlightDetail("NYCA", "KULM", "oneway")
+        var call = ApiClient.create().getFlightDetail(fromEntityID, toEntityID, "oneway")
         call.enqueue(object : Callback<BudgetResponse> {
             override fun onResponse(
                 call: Call<BudgetResponse>,
@@ -96,6 +96,30 @@ class CalculateBudget : Fragment() {
                 if(response.isSuccessful){
                     var result = response.body()!!
                     Log.d("SUCCESS RESPONSE2 ", result.toString())
+
+                    val flightQuotes = result.data!!.flightQuotes
+
+
+                    for (flightQuote in flightQuotes!!.results!!) {
+                        val content = flightQuote!!.content
+                        val price = content!!.price
+                        val direct = content.direct
+                        val outboundLeg = content.outboundLeg
+                        val originAirport = outboundLeg!!.originAirport!!.name
+                        val destinationAirport = outboundLeg.destinationAirport!!.name
+                        val depDate = outboundLeg.localDepartureDateLabel
+                        val type = outboundLeg.destinationAirport!!.type
+
+                        val skyId = arrayListOf(originAirport.toString(), destinationAirport.toString())
+
+                        flightArr.add(FlightDetail(price.toString(), direct.toString(), depDate.toString(), skyId,type.toString()))
+                    }
+
+                    flightDetailAdapter.notifyDataSetChanged()
+
+
+
+
                 }else{
                     Log.d("ERROR RESPONSE", "Response code: ${response.code()}, message: ${response.message()}")
                     Log.d("ERROR RESPONSE BODY", response.errorBody()?.string() ?: "No error body")

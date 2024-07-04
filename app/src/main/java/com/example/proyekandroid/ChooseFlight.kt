@@ -140,6 +140,8 @@ class ChooseFlight : Fragment() {
                     }
                     viewFlightAdapter.notifyDataSetChanged()
                     Log.d("SUCCESS RESPONSE", flightData.toString())
+                }else{
+                    Log.d("ERROR RESPONSE", "error")
                 }
             }
 
