@@ -38,7 +38,7 @@
 
                 <ImageView
                     android:id="@+id/ivPiccard"
-                    android:layout_width="300dp"
+                    android:layout_width="320dp"
                     android:layout_height="130dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginTop="3dp"
@@ -54,7 +54,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="Morning outing to ocean beach"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ivPiccard" />
@@ -66,6 +67,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="I dreamed about surfing last night. Whenever that happens, I know im going to have a great day on the winter. Sarah"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvJudulcard" />
