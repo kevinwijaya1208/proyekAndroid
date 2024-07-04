@@ -37,7 +37,6 @@ class tambahJurnal : AppCompatActivity() {
         val selectImageButton: Button = findViewById(R.id.selectImageButton)
         selectImageButton.setOnClickListener {
             openImageChooser()
-            Log.d("gambar setelah dipilih", "${selectedImageUri}")
         }
 
         _etJudul = findViewById(R.id.etJudul)
@@ -250,68 +249,4 @@ class tambahJurnal : AppCompatActivity() {
                 Log.w("Firebase", "Error deleting document", e)
             }
     }
-
-
-
-//    private fun editData(
-//        imageUri: Uri?,
-//        db: FirebaseFirestore,
-//        originalJudul: String,
-//        judul: String,
-//        deskripsi: String,
-//        tanggal: String,
-//        gambar: String,
-//        favorite: String
-//    ) {
-//        db.collection("listJurnal")
-//            .document(originalJudul)
-//            .delete()
-//            .addOnSuccessListener {
-//                Log.d("Firebase", "Document deleted successfully")
-//                if (imageUri != null) {
-//                    Log.d("Gambar tidak kosong", "${imageUri}")
-//                    tambahData2(
-//                        db,
-//                        _etJudul.text.toString(),
-//                        _etDeskripsi.text.toString(),
-//                        _etTanggal.text.toString(),
-//                        imageUri.toString(),
-//                        favorite
-//                    )
-//                } else {
-//                val storageRef = FirebaseStorage.getInstance().reference
-//                val imageName = UUID.randomUUID().toString()
-//                val imageRef = storageRef.child("images/$imageName")
-//
-//                val uploadTask = imageRef.putFile(selectedImageUri!!)
-//                uploadTask.continueWithTask { task ->
-//                    if (!task.isSuccessful) {
-//                        task.exception?.let { throw it }
-//                    }
-//                    imageRef.downloadUrl
-//                }.addOnCompleteListener { task ->
-//                    if (task.isSuccessful) {
-//                        val downloadUri = task.result
-//                        val downloadUrl = downloadUri.toString()
-//                        Log.d("Gambar tidak baru", "${downloadUrl}")
-//                        tambahData2(
-//                            db,
-//                            _etJudul.text.toString(),
-//                            _etDeskripsi.text.toString(),
-//                            _etTanggal.text.toString(),
-//                            downloadUrl,
-//                            favorite
-//                        )
-//                    } else {
-//                        Log.e("Firebase", "Upload failed", task.exception)
-//                    }
-//                }.addOnFailureListener { exception ->
-//                    Log.e("Firebase", "Upload failed", exception)
-//                }
-//            }
-//            }
-//            .addOnFailureListener { e ->
-//                Log.w("Firebase", "Error deleting document", e)
-//            }
-//    }
 }
