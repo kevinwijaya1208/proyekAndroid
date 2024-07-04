@@ -13,6 +13,7 @@ googleGmsGoogleServices = "4.4.2"
 firebaseFirestore = "25.0.0"
 firebaseStorageKtx = "21.0.0"
 vretro = "2.9.0"
+nav = "2.7.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -27,6 +28,8 @@ firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore
 firebase-storage-ktx = { group = "com.google.firebase", name = "firebase-storage-ktx", version.ref = "firebaseStorageKtx" }
 squareup-retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version.ref="vretro"}
 squareup-retrofit-gson = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref="vretro"}
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "nav" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "nav" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

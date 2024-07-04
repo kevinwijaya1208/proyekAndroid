@@ -24,6 +24,9 @@ import com.example.proyekandroid.API.ResponseFlightID
 import com.example.proyekandroid.adapter.ImageAdapter
 import retrofit2.Call
 import android.view.Window
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -47,6 +50,9 @@ class TravelPageFragment : Fragment(R.layout.fragment_travel_page) {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var _etDest : EditText
+    private lateinit var _etDept : EditText
+    private lateinit var _btnCalcBudget : Button
     private lateinit var viewPager2: ViewPager2
     private lateinit var handler : Handler
     private lateinit var imageList: ArrayList<Int>
@@ -73,27 +79,19 @@ class TravelPageFragment : Fragment(R.layout.fragment_travel_page) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewPager2 = view.findViewById(R.id.travelViewPager)
+        _etDest = view.findViewById(R.id.etDest)
+        _etDept = view.findViewById(R.id.etDept)
+        _btnCalcBudget = view.findViewById(R.id.btnCalcBudget)
         handler = Handler(Looper.myLooper()!!)
-        imageList = ArrayList()
 
+        prepareImageList()
 
-        imageList.add(R.drawable.bali)
-        imageList.add(R.drawable.kualalumpur)
-        imageList.add(R.drawable.tokyo)
-        imageList.add(R.drawable.france)
-        imageList.add(R.drawable.barcelona)
-        imageList.add(R.drawable.venice)
-        imageList.add(R.drawable.losangeles)
-        imageList.add(R.drawable.athens)
-
-        adapter = ImageAdapter(imageList, viewPager2)
+        adapter = ImageAdapter(imageList, viewPager2, _etDest, _etDept)
         viewPager2.adapter = adapter
         viewPager2.offscreenPageLimit = 3
         viewPager2.clipToPadding = false
         viewPager2.clipChildren = false
-//        viewPager2.post {
-//            viewPager2.setCurrentItem(1)
-//        }
+
         viewPager2.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
         setupTransformer()
@@ -134,6 +132,34 @@ class TravelPageFragment : Fragment(R.layout.fragment_travel_page) {
 
             }
         })
+
+        _btnCalcBudget.setOnClickListener{
+            if(check()){
+
+            }
+        }
+    }
+
+    private fun check() : Boolean{
+        if(_etDest.text.toString() == _etDept.text.toString()){
+            Toast.makeText(requireContext(), "Departure dan Tujuan tidak boleh sama", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
+
+    private fun prepareImageList(){
+        imageList = ArrayList()
+
+
+        imageList.add(R.drawable.bali)
+        imageList.add(R.drawable.kualalumpur)
+        imageList.add(R.drawable.tokyo)
+        imageList.add(R.drawable.france)
+        imageList.add(R.drawable.barcelona)
+        imageList.add(R.drawable.venice)
+        imageList.add(R.drawable.losangeles)
+        imageList.add(R.drawable.athens)
     }
 
 
