@@ -1,6 +1,7 @@
 package com.example.proyekandroid
 
 import android.content.Intent
+import android.media.Image
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -37,5 +38,11 @@ class detailJurnal : AppCompatActivity() {
         etDeskripsi.setText(deskripsi)
         etTanggal.setText(tanggal)
         Picasso.get().load(gambar).fit().centerCrop().into(ivGambar)
+
+
+        val _btnBack = findViewById<ImageView>(R.id.btnBack)
+        _btnBack.setOnClickListener {
+            onBackPressed()
+        }
     }
 }

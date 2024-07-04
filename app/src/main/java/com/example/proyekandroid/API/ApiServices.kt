@@ -20,4 +20,10 @@ interface ApiServices {
         @Query ("market") market:String,
         @Query ("locale") locale:String
     ) : Call<ResponseFlightID>
+
+    @GET("search-everywhere")
+    fun getFlightDetail(
+        @Query ("fromEntityId") fromEntityID: String,
+        @Query ("toEntityId") toEntityID: String
+    )
 }

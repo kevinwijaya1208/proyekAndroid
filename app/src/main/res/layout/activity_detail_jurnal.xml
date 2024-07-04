@@ -21,14 +21,22 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/baseline_arrow_back_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
                 android:id="@+id/ivPiccard"
                 android:layout_width="320dp"
                 android:layout_height="130dp"
                 android:layout_marginStart="3dp"
-                android:layout_marginTop="3dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnBack"
                 tools:srcCompat="@drawable/baseline_person_24" />
 
             <TextView
